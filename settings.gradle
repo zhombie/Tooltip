@@ -1,0 +1,3 @@
+include ':tooltip'
+include ':sample'
+rootProject.name = "Tooltip"

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="iconTextMargin">6dp</dimen>
+    <dimen name="corner">5dp</dimen>
+    <dimen name="padding">8dp</dimen>
+    <dimen name="arrowHeight">4dp</dimen>
+    <dimen name="arrowWidth">4dp</dimen>
+    <dimen name="shadowPadding">1dp</dimen>
+    <dimen name="shadowW">2dp</dimen>
+    <dimen name="screenBorderMargin">6dp</dimen>
+    <dimen name="minWidth">20dp</dimen>
+    <dimen name="minHeight">15dp</dimen>
+</resources>
