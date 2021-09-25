@@ -267,7 +267,7 @@ class TooltipBuilder constructor(private val tooltip: Tooltip) {
     }
 
     fun borderMargin(margin: Int): TooltipBuilder {
-        tooltip.tooltipView.lMargin = margin
+        tooltip.tooltipView.leftMargin = margin
         return this
     }
 

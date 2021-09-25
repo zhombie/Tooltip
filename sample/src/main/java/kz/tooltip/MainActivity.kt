@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         val button = findViewById<MaterialButton>(R.id.button)
         button.setOnClickListener {
             Tooltip.on(button)
-                .animation(R.anim.ic_in, R.anim.ic_out)
+                .animation(R.anim.fade_in, R.anim.fade_out)
                 .arrowSize(20, 20)
                 .clickToHide(true)
                 .color(Color.parseColor("#0F0F2B"))

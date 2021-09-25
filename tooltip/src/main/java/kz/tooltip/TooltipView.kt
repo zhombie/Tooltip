@@ -38,7 +38,7 @@ class TooltipView @JvmOverloads constructor(
     internal var position: Position = Position.BOTTOM
     internal var minHeight: Int = 0
     internal var minWidth: Int = 0
-    internal var lMargin: Int = 0
+    internal var leftMargin: Int = 0
     internal var arrowHeight: Float = 0F
     internal var arrowWidth: Float = 0F
 
@@ -61,7 +61,7 @@ class TooltipView @JvmOverloads constructor(
         arrowHeight = resources.getDimensionPixelSize(R.dimen.arrowHeight).toFloat()
         arrowWidth = resources.getDimensionPixelSize(R.dimen.arrowWidth).toFloat()
         shadowPadding = resources.getDimensionPixelSize(R.dimen.shadowPadding).toFloat()
-        lMargin = resources.getDimensionPixelSize(R.dimen.screenBorderMargin)
+        leftMargin = resources.getDimensionPixelSize(R.dimen.screenBorderMargin)
         minWidth = resources.getDimensionPixelSize(R.dimen.minWidth)
         minHeight = resources.getDimensionPixelSize(R.dimen.minHeight)
 
@@ -78,7 +78,7 @@ class TooltipView @JvmOverloads constructor(
         val hSpec = MeasureSpec.getSize(hms)
         val wCalculate = calculateWidth(wSpec)
         val hCalculate = calculateHeight(hSpec)
-        val margin = distanceWithView + lMargin + borderPaint.strokeWidth
+        val margin = distanceWithView + leftMargin + borderPaint.strokeWidth
 
         if (!hasInverted && (wCalculate < minWidth + margin || hCalculate < minHeight + margin)) {
             invertCurrentPosition()
@@ -126,10 +126,30 @@ class TooltipView @JvmOverloads constructor(
         val extraDistance = (borderPaint.strokeWidth + arrowHeight + distanceWithView).toInt()
 
         when (getRelativePosition()) {
-            Position.START -> setPadding(paddingStart, paddingTop, paddingEnd + extraDistance, paddingBottom)
-            Position.TOP -> setPadding(paddingStart, paddingTop, paddingEnd, paddingBottom + extraDistance)
-            Position.END -> setPadding(paddingStart + extraDistance, paddingTop, paddingEnd, paddingBottom)
-            Position.BOTTOM -> setPadding(paddingStart, paddingTop + extraDistance, paddingEnd, paddingBottom)
+            Position.START -> setPadding(
+                paddingStart,
+                paddingTop,
+                paddingEnd + extraDistance,
+                paddingBottom
+            )
+            Position.TOP -> setPadding(
+                paddingStart,
+                paddingTop,
+                paddingEnd,
+                paddingBottom + extraDistance
+            )
+            Position.END -> setPadding(
+                paddingStart + extraDistance,
+                paddingTop,
+                paddingEnd,
+                paddingBottom
+            )
+            Position.BOTTOM -> setPadding(
+                paddingStart,
+                paddingTop + extraDistance,
+                paddingEnd,
+                paddingBottom
+            )
         }
     }
 
@@ -233,8 +253,8 @@ class TooltipView @JvmOverloads constructor(
             y = calculatePosition(
                 getOffset(height, rect.height()),
                 height,
-                if (rect.top < +lMargin) lMargin else rect.top,
-                calculateHeight(parent.height) + lMargin
+                if (rect.top < +leftMargin) leftMargin else rect.top,
+                calculateHeight(parent.height) + leftMargin
             )
         } else {
             y = if (position == Position.BOTTOM) {
@@ -246,8 +266,8 @@ class TooltipView @JvmOverloads constructor(
             x = calculatePosition(
                 getOffset(width, rect.width()),
                 width,
-                if (rect.left < lMargin) lMargin else rect.left,
-                calculateWidth(parent.width) + lMargin
+                if (rect.left < leftMargin) leftMargin else rect.left,
+                calculateWidth(parent.width) + leftMargin
             )
         }
 
@@ -270,17 +290,17 @@ class TooltipView @JvmOverloads constructor(
                 (parentLP?.rightMargin ?: 0) - parent.paddingLeft - parent.paddingRight
 
         return if (position == Position.START &&
-            width > rect.left - lMargin - distanceWithView
+            width > rect.left - leftMargin - distanceWithView
         ) {
-            rect.left - lMargin - distanceWithView
+            rect.left - leftMargin - distanceWithView
         } else if (position == Position.END && rect.right + parentRect.left + width >
-            maxWidth - rect.right + parentRect.left - lMargin - distanceWithView
+            maxWidth - rect.right + parentRect.left - leftMargin - distanceWithView
         ) {
-            maxWidth - rect.right + parentRect.left - lMargin - distanceWithView
+            maxWidth - rect.right + parentRect.left - leftMargin - distanceWithView
         } else if ((position == Position.TOP || position == Position.BOTTOM)
-            && width > maxWidth - (lMargin * 2)
+            && width > maxWidth - (leftMargin * 2)
         ) {
-            maxWidth - (lMargin * 2)
+            maxWidth - (leftMargin * 2)
         } else {
             width
         }
@@ -288,14 +308,15 @@ class TooltipView @JvmOverloads constructor(
 
     private fun calculateHeight(height: Int): Int {
         val parentLP = parent.layoutParams as? MarginLayoutParams
-        val maxHeight = parent.height - (parentLP?.topMargin ?: 0) - (parentLP?.bottomMargin ?: 0) - parent.paddingTop - parent.paddingBottom
+        val maxHeight = parent.height - (parentLP?.topMargin ?: 0) -
+                (parentLP?.bottomMargin ?: 0) - parent.paddingTop - parent.paddingBottom
 
-        return if (position == Position.TOP && height > rect.top - lMargin - distanceWithView) {
-            rect.top - lMargin - distanceWithView
-        } else if (position == Position.BOTTOM && rect.bottom + parentRect.top + height > maxHeight - rect.bottom + parentRect.top - lMargin - distanceWithView) {
-            maxHeight - rect.bottom + parentRect.top - lMargin - distanceWithView
-        } else if ((position == Position.START || position == Position.END) && height > maxHeight - (lMargin * 2)) {
-            maxHeight - (lMargin * 2)
+        return if (position == Position.TOP && height > rect.top - leftMargin - distanceWithView) {
+            rect.top - leftMargin - distanceWithView
+        } else if (position == Position.BOTTOM && rect.bottom + parentRect.top + height > maxHeight - rect.bottom + parentRect.top - leftMargin - distanceWithView) {
+            maxHeight - rect.bottom + parentRect.top - leftMargin - distanceWithView
+        } else if ((position == Position.START || position == Position.END) && height > maxHeight - (leftMargin * 2)) {
+            maxHeight - (leftMargin * 2)
         } else {
             height
         }

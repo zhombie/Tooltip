@@ -35,8 +35,13 @@ android {
     }
 }
 
+ext {
+    appcompat_version = '1.4.0-alpha03'
+}
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    // AppCompat
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
 }
